@@ -1,0 +1,31 @@
+STOK AWAL:
+{"orders":0,"stock":{"P001":10,"P002":10000000}}
+== FT-01
+{"order_id":1,"product_id":"P001","quantity":2,"status":"CREATED"}
+HTTP 201
+STOK:
+{"orders":1,"stock":{"P001":8,"P002":10000000}}
+== FT-02
+{"error":"stok tidak cukup"}
+HTTP 409
+STOK:
+{"orders":1,"stock":{"P001":8,"P002":10000000}}
+== FT-03
+{"error":"produk tidak ditemukan"}
+HTTP 404
+== FT-04
+{"error":"product_id dan quantity wajib diisi"}
+HTTP 422
+== FT-05
+{"error":"quantity harus bilangan bulat positif"}
+HTTP 422
+STOK sebelum FT-06:
+{"orders":1,"stock":{"P001":8,"P002":10000000}}
+== FT-06 (kirim ke-1)
+{"order_id":2,"product_id":"P001","quantity":1,"status":"CREATED"}
+HTTP 201
+== FT-06 (kirim ke-2)
+{"order_id":2,"product_id":"P001","quantity":1,"status":"CREATED"}
+HTTP 200
+STOK akhir:
+{"orders":2,"stock":{"P001":7,"P002":10000000}}
